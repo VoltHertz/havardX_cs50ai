@@ -1,1 +1,1 @@
-# CS50 AI Harcard corse - AI with python
+# CS50 AI Harvard corse - AI with python
