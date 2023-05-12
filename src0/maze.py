@@ -1,43 +1,46 @@
 import sys
 
+#Criando a classe node, aonde o metodo init automaticamente inicia a classe atribuindo a ela 3 caracteristicas ou variaveis. 
+#A classe node é uma estrutura de dados que que serve para acompanhar as ações tomadas pelo agente
 class Node():
     def __init__(self, state, parent, action):
-        self.state = state
-        self.parent = parent
-        self.action = action
+        self.state = state #A variavel estado se refere ao estado atual do Node
+        self.parent = parent #A variavel parent se refere ao Node pai, ou anterior aquele Node.
+        self.action = action #A variavel action se refere a ação queo nó está tomando.
 
-
+#Criação da fronteira gerenciada por stack DFS, a fronteira é o conjunto de proximos passos que são possíveis analisar a partir do passo atual ao qual não foram analisados ainda
+#Depth-First Search é a frontier gerenciada em forma de stack, o primiero nó a ser removido e considerado é o ultimo a ser adicionado, ou LIFO (Last in first out) Ou Ultimo que entra é o primeiro que sai
 class StackFrontier():
     def __init__(self):
-        self.frontier = []
+        self.frontier = [] #Ao criar uma fronteira cria-se o seu atributo, uma lista vazia 
 
-    def add(self, node):
-        self.frontier.append(node)
+    def add(self, node): #Criado método para adicionar novos Nodes
+        self.frontier.append(node)  #Adiciona um Node a lista, Visto que se trata de stack, os Nodes novos são sempre adicionados ao topo da stack, por isso append
 
-    def contains_state(self, state):
-        return any(node.state == state for node in self.frontier)
+    def contains_state(self, state): #Cria método para verificar se um um bloco está na fila, o bloco é localizado pelo seu estado
+        return any(node.state == state for node in self.frontier) #se qualquer um dos nós possuir o estado, ele retornará true, visto a comparação e o for que busca os estados dos nodes na frontier inteira, se não encontrar em nenhum retorna false
 
-    def empty(self):
-        return len(self.frontier) == 0
+    def empty(self): #metodo para verficar se a pilha está vazia
+        return len(self.frontier) == 0 #ele faz isso ao verificar se o lenght da lista frontier é igual a 0(se o comprimento da lista é 0)
 
-    def remove(self):
-        if self.empty():
-            raise Exception("empty frontier")
-        else:
-            node = self.frontier[-1]
-            self.frontier = self.frontier[:-1]
-            return node
+    def remove(self): #metodo para remover o node da pilha
+        if self.empty(): #verifica se a pilha já não está vazia
+            raise Exception("empty frontier") #avisa que a pilha já esta vazia, se tiver.
+        else: 
+            node = self.frontier[-1] #senão atribui o ultimo elemento da fronteira para o valor node
+            self.frontier = self.frontier[:-1] #remove o ultimo elemento da fronteira(ou remove do topo)
+            return node #retorna o ultimo node, gerenciando assim a fronteira de forma Depth-First Search (stack ou LIFO)
 
 
-class QueueFrontier(StackFrontier):
+class QueueFrontier(StackFrontier): #a classe QueueFrontier herdou a classe anteriormente descrita, ou seja, possui todos os metodos e caracteristicas de funcionamento da classe anterior. Contudo foi alterado apenas o método remove abaixo:
 
-    def remove(self):
-        if self.empty():
-            raise Exception("empty frontier")
-        else:
-            node = self.frontier[0]
-            self.frontier = self.frontier[1:]
-            return node
+    def remove(self): #redefinição do metodo para remover os nodes.
+        if self.empty(): #primeiro verifica se a fronteria já não está vazia
+            raise Exception("empty frontier") #se estiver vazia aponta a questão
+        else: 
+            node = self.frontier[0] #se não ela pega o primeiro node da lista de nodes fronteira e atribui ele a variavel node
+            self.frontier = self.frontier[1:] #Elimina o primeiro node de dentro da lista fronteira
+            return node #retorna o primeiro node, gerenciando assim a fronteira de forma Breadth-First Search (queue ou FIFO)
 
 class Maze():
 
