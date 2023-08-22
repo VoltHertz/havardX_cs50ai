@@ -1,5 +1,5 @@
 '''
-Programa utilizado para 
+Programa utilizado para traduzir um texto para o portugues, utlizando o GPT3.5 e depois transforma-lo de uma forma a facilitar a leitura dinamica. Aonde metade das palavras fica em negrito.
 '''
 
 
@@ -75,10 +75,6 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
 
 # Lê o arquivo .txt
 def read_txt_file(filename):

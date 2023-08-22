@@ -1,7 +1,7 @@
 import sys
 
 #Criando a classe node, aonde o metodo init automaticamente inicia a classe atribuindo a ela 3 caracteristicas ou variaveis. 
-#A classe node é uma estrutura de dados que que serve para acompanhar as ações tomadas pelo agente
+#A classe node é uma estrutura de dados que serve para acompanhar as ações tomadas pelo agente
 class Node():
     def __init__(self, state, parent, action):
         self.state = state #A variavel estado se refere ao estado atual do Node
@@ -35,7 +35,7 @@ class StackFrontier():
 class QueueFrontier(StackFrontier): #a classe QueueFrontier herdou a classe anteriormente descrita, ou seja, possui todos os metodos e caracteristicas de funcionamento da classe anterior. Contudo foi alterado apenas o método remove abaixo:
 
     def remove(self): #redefinição do metodo para remover os nodes.
-        if self.empty(): #primeiro verifica se a fronteria já não está vazia
+        if self.empty(): #primesteria já não está vazia
             raise Exception("empty frontier") #se estiver vazia aponta a questão
         else: 
             node = self.frontier[0] #se não ela pega o primeiro node da lista de nodes fronteira e atribui ele a variavel node
@@ -44,22 +44,22 @@ class QueueFrontier(StackFrontier): #a classe QueueFrontier herdou a classe ante
 
 class Maze():
 
-    def __init__(self, filename):
+    def __init__(self, filename): #método de inicição necessita do apontamento de um arquivo
 
         # Read file and set height and width of maze
-        with open(filename) as f:
+        with open(filename) as f: #abre o arquivo
             contents = f.read()
 
         # Validate start and goal
-        if contents.count("A") != 1:
-            raise Exception("maze must have exactly one start point")
-        if contents.count("B") != 1:
-            raise Exception("maze must have exactly one goal")
+        if contents.count("A") != 1: #Verifica se existe apenas 1 ponto de inicio
+            raise Exception("maze must have exactly one start point") #levanta exceção caso não.
+        if contents.count("B") != 1: #Verifica se existe apenas 1 pondo de objetivo
+            raise Exception("maze must have exactly one goal") #levanta exceção caso não
 
         # Determine height and width of maze
-        contents = contents.splitlines()
-        self.height = len(contents)
-        self.width = max(len(line) for line in contents)
+        contents = contents.splitlines() #cria uma lista aonde cada linha é um item diferente
+        self.height = len(contents) #a quantidade de objetos ou linhas, é a altura do laberinto
+        self.width = max(len(line) for line in contents) #
 
         # Keep track of walls
         self.walls = []
